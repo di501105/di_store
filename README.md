@@ -1,4 +1,4 @@
-# di_store
+# vue-e-commerce-vue-cli3
 
 ## Project setup
 ```
