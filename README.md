@@ -6,7 +6,7 @@
 
 #### Vue CLI 3
 
-https://di501105.github.io/di_store/dist
+https://di501105.github.io/di_store/
 
 ## 簡介
 
