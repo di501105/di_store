@@ -2,9 +2,10 @@
   <div>
     <div class="container px-0 px-lg-1">
       <header class="header">
-        <div class="bg-cover header-main-image"
+        <!-- <div class="bg-cover header-main-image"
         style="background-image: url(https://images.unsplash.com/photo-1473256599800-b48c7c88cd7e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ae0d68ab0db4ee79bdce92722b31112b&auto=format&fit=crop&w=2725&q=80)">
-        <h1 class="text-hide">Sweetaste 甜點</h1></div>
+        <h1 class="text-hide">Sweetaste 甜點</h1></div> -->
+        <Home-header-slide><h1 class="text-hide">Sweetaste 甜點</h1></Home-header-slide>
         <div class="row no-gutters justify-content-center rectangle-section">
           <div class="col-md-10">
             <div class="row no-gutters">
@@ -134,12 +135,14 @@
   </div>
 </template>
 
-<<script>
+<script>
 import HomeProducts from '../components/HomeProducts.vue';
+import HomeHeaderSlide from '../components/HomeHeaderSlide.vue';
 
 export default {
   components: {
-    HomeProducts
+    HomeProducts,
+    HomeHeaderSlide
   } 
 }
 </script>>
