@@ -32,7 +32,7 @@
             <ul class="list-unstyled mt-6">
               <li>07-1234-5678</li>
               <li><a href="mailto:sweetaste@email.com">sweetaste@email.com</a></li>
-              <li>800 高雄市新興區幸福路 520 號</li>
+              <li>800 台北市區幸福路 520 號</li>
             </ul>
           </div>
           <div class="col-md-5 text-right d-none d-md-block">
