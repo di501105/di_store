@@ -27,10 +27,10 @@
                 <input type="password" id="inputPassword" class="form-input w-100"
                 placeholder="請輸入使用者密碼" v-model="user.password" required>
               </div>
-              <div class="custom-control custom-checkbox">
+              <!-- <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="remember">
                 <label class="custom-control-label text-white" for="remember">記住我</label>
-              </div>
+              </div> -->
             </div>
             <button class="btn btn-minor btn-block btn-xl text-primary
             font-weight-bold py-2 mb-md-7" type="submit">登入帳號</button>
