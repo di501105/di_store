@@ -26,7 +26,7 @@
                     </div>
                   </div>
 
-                    <table class="table mb-7">
+                    <table class="table mb-7 text-light">
                       <thead>
                         <th>品名</th>
                         <th>數量</th>
@@ -53,7 +53,7 @@
                       </tfoot>
                     </table>
 
-                    <table class="table">
+                    <table class="table text-light">
                       <tbody>
                         <tr>
                           <th width="150">Email</th>
