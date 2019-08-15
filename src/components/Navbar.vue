@@ -40,7 +40,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" @click.prevent="signout">登出</a>
+          <a class="nav-link" href="#" @click.prevent="signout()">登出</a>
         </li>
       </ul>
       </div>
@@ -54,7 +54,7 @@ export default {
   methods: {
     signout() {
       const vm = this;
-      const url = `${process.env.APIPATH}logout`;
+      const url = `${process.env.VUE_APP_APIPATH}logout`;
       this.$http.post(url).then((response) => {
         if (response.data.success) {
           vm.$router.push('/login');
