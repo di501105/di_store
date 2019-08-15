@@ -12,12 +12,8 @@
                 <div class="product-favorite">
                   <label class="favorite-checked-display">
                     <input type="checkbox" class="favorite-checkbox">
-                    <i class="material-icons favorite">
-                      favorite
-                    </i>
-                    <i class="material-icons unfavorite">
-                      favorite_border
-                    </i>
+                    <i class="material-icons" @click.prevent="removeFavorite(item, false)" v-if="item.is_favorite">favorite</i>
+                    <i class="material-icons" @click.prevent="addFavorite(item)" v-else>favorite_border</i>
                   </label>
                 </div>
               </div>
@@ -29,6 +25,8 @@
               @click.prevent="addtoCart(item.id)">加入購物車</a>
             </div>
           </swiper-slide>
+          <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+          <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
         </swiper>
       </div>
     </section>
@@ -52,7 +50,11 @@ export default {
         loop: true,
         slidesPerView: 'auto',
         autoplay: { // 自動撥放-delay延遲
-          delay: 4500,
+          delay: 4000,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
         },
       },
     };
@@ -65,11 +67,14 @@ export default {
     addtoCart(id, qty = 1) {
       this.$store.dispatch('addtoCart', { id, qty });
     },
+    addFavorite(item) {
+      this.$store.dispatch('favoriteModules/addFavorite', item)
+    },
+    removeFavorite(item, del) {
+      this.$store.dispatch('favoriteModules/removeFavorite', {item, del})
+    }
   },
   computed: {
-    threeProducts() {
-      return this.products.filter((item, i) => i < 3);
-    },
     ...mapGetters(['isLoading', 'products']),
   },
   created() {

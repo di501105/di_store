@@ -38,7 +38,7 @@
               @click.prevent="category = item; getProducts()">{{ item }}</a> -->
             </ul>
             <form class="input-group mb-3">
-              <input type="search" class="form-control" placeholder="搜尋甜點" v-model="searchText">
+              <input type="search" class="form-control" placeholder="搜尋甜點" maxlength="20" v-model="searchText">
               <div class="input-group-append">
                 <button class="input-group-text bg-light" @click.prevent="search()">
                   <i class="fas fa-search"></i>
@@ -57,12 +57,8 @@
                   <div class="product-favorite">
                     <label class="favorite-checked-display">
                       <input type="checkbox" class="favorite-checkbox">
-                      <i class="material-icons favorite">
-                        favorite
-                      </i>
-                      <i class="material-icons unfavorite">
-                        favorite_border
-                      </i>
+                      <i class="material-icons" @click.prevent="removeFavorite(item, false)" v-if="item.is_favorite">favorite</i>
+                      <i class="material-icons" @click.prevent="addFavorite(item)" v-else>favorite_border</i>
                     </label>
                   </div>
                 </div>
@@ -74,6 +70,13 @@
                 @click.prevent="addtoCart(item.id)">加入購物車</a>
               </div>
             </div>
+          </div>
+
+          <div class="jumbotron text-center" v-if="filterData.length === 0">
+            <div class="mb-5">
+              <img src="static/images/search_empty.svg" alt="" />
+            </div>
+            <div class="h2">找不到此商品，請重新輸入關鍵字查詢</div>
           </div>
 
           <div v-show="filterData.length > 0" class="mt-1 mb-7">
@@ -131,6 +134,12 @@ export default {
     },
     search() {
       this.filterText = this.searchText;
+    },
+    addFavorite(item) {
+      this.$store.dispatch('favoriteModules/addFavorite', item)
+    },
+    removeFavorite(item, del) {
+      this.$store.dispatch('favoriteModules/removeFavorite', {item, del})
     }
   },
   computed: {
@@ -158,7 +167,6 @@ export default {
   },
   created() {
     this.getProducts();
-    console.log(this.products)
   },
 };
 </script>

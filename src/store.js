@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axiox from 'axios';
 
+import favoriteModules from './store/favorite';
 
 Vue.use(Vuex);
 
@@ -29,7 +30,15 @@ export default new Vuex.Store({
         context.commit('PRODUCTS', response.data.products);
         context.commit('PAGINATION', response.data.pagination);
         // context.commit('CATEGORYLIST', response.data.products);
-        console.log(response);
+        if (context.rootState.favoriteModules.favoriteLength) {
+          context.state.products.forEach((productItem, index) => {
+            context.rootState.favoriteModules.favorite.forEach((favoriteItem) => {
+              if (productItem.id === favoriteItem.id) {
+                context.commit('UPDATEPRODUCTS', { index, isFavorite: true });
+              }
+            });
+          });
+        };
         context.commit('LOADING', false);
       });
     },
@@ -38,7 +47,7 @@ export default new Vuex.Store({
       context.commit('LOADING', true);
       axiox.get(url).then((response) => {
         context.commit('CART', response.data.data);
-        console.log(response);
+        // console.log(response);
         context.commit('LOADING', false);
       });
     },
@@ -47,7 +56,7 @@ export default new Vuex.Store({
       context.commit('LOADING', true);
       axiox.delete(url).then((response) => {
         context.dispatch('getCart');
-        console.log(response);
+        // console.log(response);
       });
     },
     addtoCart(context, { id, qty }) {
@@ -60,7 +69,7 @@ export default new Vuex.Store({
       axiox.post(url, { data: cart }).then((response) => {
         context.commit('LOADING', false);
         context.dispatch('getCart');
-        console.log(response);
+        // console.log(response);
       });
     },
     updateMessage(context, { message, status }) {
@@ -113,6 +122,9 @@ export default new Vuex.Store({
     REMOVE_MESSAGE(state, i) {
       state.messages.splice(i, 1);
     },
+    UPDATEPRODUCTS(state, { index, isFavorite }) {
+      Vue.set(state.products[index], 'is_favorite', isFavorite);
+    },
   /*  eslint-disable no-param-reassign  */
   },
   getters: {
@@ -121,5 +133,8 @@ export default new Vuex.Store({
     pagination: state => state.pagination,
     cart: state => state.cart,
     messages: state => state.messages,
+  },
+  modules: {
+    favoriteModules
   },
 });

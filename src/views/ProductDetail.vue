@@ -11,12 +11,8 @@
               <div class="detail-favorite">
                 <label class="favorite-checked-display">
                   <input type="checkbox" class="favorite-checkbox">
-                  <i class="material-icons favorite">
-                    favorite
-                  </i>
-                  <i class="material-icons unfavorite">
-                    favorite_border
-                  </i>
+                  <i class="material-icons" @click.prevent="removeFavorite(product, false)" v-if="isFavorite">favorite</i>
+                  <i class="material-icons" @click.prevent="addFavorite(product)" v-else>favorite_border</i>
                 </label>
               </div>
             </div>
@@ -67,6 +63,7 @@ export default {
       product: [],
       productId: '',
       count: 1,
+      isFavorite: false,
     };
   },
   methods: {
@@ -77,6 +74,11 @@ export default {
       this.$http.get(url).then((response) => {
         if (response.data.success) {
           vm.product = response.data.product;
+          vm.favorite.forEach(e => {
+            if (vm.product.id === e.id) {
+              vm.isFavorite = true;
+            }
+          });
           vm.$store.dispatch('updateLoading', false);
         } else {
           vm.$store.dispatch('updateMessage', { message: response.data.message, status: 'danger' });
@@ -86,9 +88,18 @@ export default {
     addtoCart(id, qty = 1) {
       this.$store.dispatch('addtoCart', { id, qty });
     },
+    addFavorite(item) {
+      this.$store.dispatch('favoriteModules/addFavorite', item);
+      this.isFavorite = true;
+    },
+    removeFavorite(item, del) {
+      this.$store.dispatch('favoriteModules/removeFavorite', {item, del});
+      this.isFavorite = false;
+    }
   },
   computed: {
     ...mapGetters(['isLoading']),
+    ...mapGetters('favoriteModules', ['favorite'])
   },
   created() {
     this.productId = this.$route.params.productId;
