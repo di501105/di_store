@@ -4,6 +4,9 @@
     <HomeNavbar/>
     <section class="container">
       <div class="jumbotron text-center" v-if="cart.carts && cart.carts.length === 0">
+        <div class="mb-5">
+          <img src="static/images/search_empty.svg" alt="" />
+        </div>
         <div class="h2 mb-5">購物車內無商品</div>
         <router-link class="btn btn-minor btn-xl text-primary font-weight-bold"
         to="/shopping">前往商城選購</router-link>
